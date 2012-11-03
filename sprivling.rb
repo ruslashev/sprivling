@@ -6,26 +6,28 @@ include Ncurses
 editor = Editor.new "public_code.rb"#ARGV[0]
 
 main_loop do
-  scr = editor.text_scr
+  scr = editor.scr
+  #Ncurses::start_color
+  #Ncurses::init_pair(2, COLOR_WHITE, COLOR_BLACK)
+  editor.redraw
 
-  scr.clear
-  editor.file.each do |l|
-    scr.mvaddstr(editor.file.index(l), 0, l)
-  end
-  scr.mvprintw(editor.cy, editor.cy, "@")
-  scr.move(editor.cy, editor.cy)
-  scr.refresh
-
-  while (ch = scr.getch) != KEY_BACKSPACE
+  while (ch = scr.getch) != 27
     case ch
-    when KEY_RIGHT
+    when KEY_RIGHT#, 108
       editor.cx += 1 if editor.cx < Ncurses.getmaxx(scr)-1
-    when KEY_LEFT
+    when KEY_LEFT#, 104
       editor.cx -= 1 if editor.cx > 0
-    when KEY_DOWN
+    when KEY_DOWN#, 106
       editor.cy += 1 if editor.cy < Ncurses.getmaxy(scr)-1
-    when KEY_UP
+    when KEY_UP#, 107
       editor.cy -= 1 if editor.cy > 0
+    when 32..126
+      if editor.cx <= editor.file[editor.cy].length
+        editor.file[editor.cy].insert(editor.cx, ch.chr)
+        editor.cx += 1
+      end
     end
+
+    editor.redraw
   end
 end

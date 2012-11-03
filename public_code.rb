@@ -1,4 +1,37 @@
 # todo:
 # [ ] put something actually worthy in public file
 
-puts "penis\n"*100
+puts "penis"*100
+
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a

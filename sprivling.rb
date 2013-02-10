@@ -13,21 +13,29 @@ main_loop do
 
   while (ch = scr.getch) != 27
     case ch
-    when KEY_RIGHT#, 108
-      editor.cx += 1 if editor.cx < Ncurses.getmaxx(scr)-1
-    when KEY_LEFT#, 104
-      editor.cx -= 1 if editor.cx > 0
-    when KEY_DOWN#, 106
-      editor.cy += 1 if editor.cy < Ncurses.getmaxy(scr)-1
-    when KEY_UP#, 107
-      editor.cy -= 1 if editor.cy > 0
-    when 32..126
-      if editor.cx <= editor.file[editor.cy].length
-        editor.file[editor.cy].insert(editor.cx, ch.chr)
-        editor.cx += 1
+      when KEY_RIGHT#, 108
+        if editor.cx < [editor.cur_llen, Ncurses.getmaxx(scr)-1].min
+          editor.cx += 1
+        else
+          editor.move_down true
+        end
+      when KEY_LEFT#, 104
+        if editor.cx > 0
+          editor.cx -= 1
+        else
+          editor.move_up true
+        end
+      when KEY_DOWN#, 106
+        editor.move_down
+      when KEY_UP#, 107
+        editor.move_up
+      when 32..126
+        #if editor.cx <= editor.cur_llen
+          editor.file[editor.cy].insert(editor.cx, ch.chr)
+          editor.cx += 1
+        #end
       end
-    end
 
-    editor.redraw
+      editor.redraw
   end
 end

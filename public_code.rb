@@ -1,34 +1,8 @@
 # todo:
 # [ ] put something actually worthy in public file
 
-puts "penis"*100
+loop do puts "butt" end
 
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
 a
 a
 a
